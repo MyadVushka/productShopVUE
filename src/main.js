@@ -1,0 +1,32 @@
+import './assets/main.css'
+
+import { createApp } from 'vue'
+import { createRouter, createWebHistory } from 'vue-router'
+import { createPinia } from 'pinia'
+import App from './App.vue'
+import MainPage from './pages/MainPage.vue'
+import AboutCompany from './pages/AboutCompany.vue'
+import ContactsPage from './pages/ContactsPage.vue'
+import VacanciesPage from './pages/VacanciesPage.vue'
+import FavouritesPage from './pages/FavouritesPage.vue'
+import CartPage from './pages/CartPage.vue'
+import DeliveryPage from './pages/DeliveryPage.vue'
+import CataloguePage from './pages/CataloguePage.vue'
+
+const routes = [
+  { path: '/', name: 'Home', component: MainPage },
+  { path: '/about', component: AboutCompany },
+  { path: '/contacts', component: ContactsPage },
+  { path: '/vacancies', component: VacanciesPage },
+  { path: '/favourites', component: FavouritesPage },
+  { path: '/cart', component: CartPage },
+  { path: '/delivery', component: DeliveryPage },
+  {path: '/catalogue', component: CataloguePage},
+]
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes
+})
+
+createApp(App).use(createPinia()).use(router).mount('#app')

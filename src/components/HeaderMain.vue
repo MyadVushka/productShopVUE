@@ -1,0 +1,230 @@
+<script setup>
+import { computed, ref } from 'vue'
+import { useMainStore } from '../../stores/MainStore'
+
+const dropDownFlag = ref(false)
+
+const store = useMainStore()
+
+const currentCartElemenents = computed(() => store.getAddedProducts.length)
+</script>
+
+<template>
+  <div class="general-wrapper">
+    <header class="header">
+      <div class="wrapper">
+        <router-link to="/">
+          <img src="/public/logo-main.svg" alt="" />
+        </router-link>
+        <div class="wrapper__button-input">
+          <button class="wrapper__button">
+            <img @click="dropDownFlag = !dropDownFlag" src="/public/menu.svg" alt="" />
+            <router-link to="/catalogue"><p class="wrapper__button_text">Каталог</p></router-link>
+          </button>
+          <div class="wrapper__input">
+            <input type="text" placeholder="Найти товар" />
+            <img src="/public/lupa.svg" alt="" />
+          </div>
+        </div>
+        <ul class="wrapper__list">
+          <li>
+            <router-link class="wrapper__list_link" to="/favourites">
+              <img src="/public/favourite-main.svg" alt="" />
+              <p>Избранное</p>
+            </router-link>
+          </li>
+          <li>
+            <img src="/public/zakazy-header.svg" alt="" />
+            <p>Заказы</p>
+          </li>
+          <li class="wrapper__list_cart">
+            <router-link class="wrapper__list_link" to="/cart">
+              <img src="/public/cart-header.svg" alt="" />
+              <p>Корзина</p>
+              <div class="wrapper__list_count" v-if="currentCartElemenents > 0">
+                {{ currentCartElemenents }}
+              </div>
+            </router-link>
+          </li>
+        </ul>
+        <div class="wrapper__profile">
+          <div class="profile"></div>
+          <p>Name Surname</p>
+          <img src="/public/profile-dropdown.svg" alt="" />
+        </div>
+      </div>
+    </header>
+    <div v-if="dropDownFlag" class="drop-down-menu">
+      <ul class="drop-down-menu__list">
+        <li>Молоко, сыр, яйцо</li>
+        <li>Хлеб</li>
+        <li>Фрукты и овощи</li>
+        <li>Замороженные продукты</li>
+      </ul>
+      <ul class="drop-down-menu__list">
+        <li>Напитки</li>
+        <li>Кондитерские изделия</li>
+        <li>Чай, кофе</li>
+      </ul>
+      <ul class="drop-down-menu__list">
+        <li>Бакалея</li>
+        <li>Здоровое питание</li>
+        <li>Зоотовары</li>
+      </ul>
+      <ul class="drop-down-menu__list">
+        <li>Непродовольственные товары</li>
+        <li>Детское питание</li>
+        <li>Мясо, птица, колбаса</li>
+      </ul>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.wrapper__button_text {
+  color: white;
+}
+
+.wrapper__list_cart {
+  position: relative;
+}
+
+.wrapper__list_count {
+  background-color: #ff6633;
+  font-size: 10px;
+  color: white;
+  position: absolute;
+  padding: 4px;
+  border-radius: 4px;
+  right: 20%;
+  top: -15%;
+}
+
+.general-wrapper {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 999;
+}
+
+.header {
+  width: 100%;
+  padding: 20px 200px;
+  box-shadow: 0px 3px 20px -5px rgba(0, 0, 0, 0.303);
+  background-color: white;
+  z-index: 200;
+}
+
+.wrapper__button-input {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  justify-content: space-around;
+}
+
+.wrapper__button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 5px;
+  gap: 10px;
+  background-color: #70c05b;
+  color: white;
+}
+
+.wrapper__input {
+  position: relative;
+}
+
+.wrapper__input input {
+  border: none;
+  outline: none;
+  border: solid 1px #70c05b;
+  width: 500px;
+  height: 40px;
+  padding: 10px 35px 10px 20px;
+  border-radius: 7px;
+}
+
+.wrapper__input img {
+  position: absolute;
+  right: 4%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.wrapper__list {
+  display: flex;
+  gap: 20px;
+}
+
+.wrapper__list li {
+  cursor: pointer;
+}
+
+li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+li img {
+  width: 25px;
+  height: 25px;
+}
+
+.wrapper__profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.profile {
+  padding: 20px;
+  background-color: grey;
+  border-radius: 50%;
+}
+
+.drop-down-menu {
+  padding: 40px 200px;
+  background-color: rgba(255, 255, 255);
+  z-index: 100;
+  display: flex;
+  justify-content: space-around;
+  box-shadow: 0px 3px 20px -5px rgba(0, 0, 0, 0.67);
+}
+
+.drop-down-menu__list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.drop-down-menu__list li {
+  font-weight: bold;
+  font-family: 'Rubik';
+}
+
+.drop-down-menu__list li:hover {
+  color: #ff6633;
+  cursor: pointer;
+}
+
+.wrapper__list_link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+</style>
