@@ -1,15 +1,19 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { useMainStore } from '../../stores/MainStore'
+import RegistrationForm from './RegistrationForm.vue'
 
 const dropDownFlag = ref(false)
 
 const store = useMainStore()
 
+const registrationFormFlag = ref(false)
+
 const currentCartElemenents = computed(() => store.getAddedProducts.length)
 </script>
 
 <template>
+  <RegistrationForm v-if="registrationFormFlag" @on-close="registrationFormFlag = false" />
   <div class="general-wrapper">
     <header class="header">
       <div class="wrapper">
@@ -47,7 +51,7 @@ const currentCartElemenents = computed(() => store.getAddedProducts.length)
             </router-link>
           </li>
         </ul>
-        <div class="wrapper__profile">
+        <div @click="registrationFormFlag = !registrationFormFlag" class="wrapper__profile">
           <div class="profile"></div>
           <p>Name Surname</p>
           <img src="/public/profile-dropdown.svg" alt="" />
@@ -107,7 +111,7 @@ const currentCartElemenents = computed(() => store.getAddedProducts.length)
   position: fixed;
   width: 100%;
   top: 0;
-  z-index: 999;
+  z-index: 100;
 }
 
 .header {
@@ -188,6 +192,7 @@ li img {
   display: flex;
   align-items: center;
   gap: 10px;
+  cursor: pointer;
 }
 .profile {
   padding: 20px;

@@ -15,7 +15,6 @@ const props = defineProps({
       <img :src="props.imgUrl" alt="" />
       <div class="catalogue-card__background"></div>
     </div>
-    <div class=" "></div>
     <p>{{ props.title }}</p>
   </div>
 </template>
