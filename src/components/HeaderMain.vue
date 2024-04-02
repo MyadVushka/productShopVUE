@@ -1,5 +1,6 @@
 <script setup>
-import { computed, ref } from 'vue'
+import debounce from 'lodash.debounce'
+import { computed, ref, watch } from 'vue'
 import { useMainStore } from '../../stores/MainStore'
 import RegistrationForm from './RegistrationForm.vue'
 
@@ -10,6 +11,14 @@ const store = useMainStore()
 const registrationFormFlag = ref(false)
 
 const currentCartElemenents = computed(() => store.getAddedProducts.length)
+
+const currentSearch = ref('')
+
+let debounceHandler = debounce(async function () {
+  console.log(currentSearch.value)
+}, 1000)
+
+watch(currentSearch, () => debounceHandler())
 </script>
 
 <template>
@@ -26,7 +35,7 @@ const currentCartElemenents = computed(() => store.getAddedProducts.length)
             <router-link to="/catalogue"><p class="wrapper__button_text">Каталог</p></router-link>
           </button>
           <div class="wrapper__input">
-            <input type="text" placeholder="Найти товар" />
+            <input type="text" placeholder="Найти товар" v-model="currentSearch" />
             <img src="/public/lupa.svg" alt="" />
           </div>
         </div>

@@ -1,8 +1,16 @@
 <script setup>
+import { ref } from 'vue'
+
 const emits = defineEmits(['onClose'])
+
+const expression = ref(false)
 </script>
 
 <template>
+  <v-snackbar class="snackbar" v-model="expression" color="#70c05b" location="left bottom">
+    <span class="snackbar text">In this project you can only login in =)</span>
+    <v-btn class="snackbar button" @click.prevent="expression = false" variant="plain">Close</v-btn>
+  </v-snackbar>
   <section>
     <div class="registration__wrapper">
       <div class="registration__inner">
@@ -14,11 +22,11 @@ const emits = defineEmits(['onClose'])
               <label for="mainInput">Телефон</label>
               <input type="text" key="mainInput" />
             </div>
-            <button type="submit">Вход</button>
+            <button class="main-button" type="submit">Вход</button>
           </form>
           <div class="secondary-buttons">
-            <button>Регистрация</button>
-            <button>Забыли пароль?</button>
+            <button @click="expression = true">Регистрация</button>
+            <button @click="expression = true">Забыли пароль?</button>
           </div>
         </div>
       </div>
@@ -27,6 +35,14 @@ const emits = defineEmits(['onClose'])
 </template>
 
 <style scoped>
+.text {
+  color: white;
+}
+
+.main-button:focus {
+  border: none;
+}
+
 .secondary-buttons {
   margin-top: 40px;
   display: flex;

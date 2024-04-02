@@ -1,14 +1,23 @@
-<script setup></script>
+<script setup>
+import { ref } from 'vue'
+const expression = ref(false)
+</script>
 
 <template>
+  <v-snackbar class="snackbar" v-model="expression" color="#70c05b" location="left bottom">
+    <span class="snackbar text"
+      >In this project there are no articles and politic of processing data =)</span
+    >
+    <v-btn class="snackbar button" @click.prevent="expression = false" variant="plain">Close</v-btn>
+  </v-snackbar>
   <footer>
     <img src="/public/footerlogo.svg" alt="" />
     <ul>
       <li><router-link to="/about">О компании</router-link></li>
       <li><router-link to="/contacts">Контакты</router-link></li>
       <li><router-link to="/vacancies">Вакансии</router-link></li>
-      <li>Статьи</li>
-      <li>Политика обработки персональных данных</li>
+      <li @click="expression = true">Статьи</li>
+      <li @click="expression = true">Политика обработки персональных данных</li>
     </ul>
     <ul class="footer__social">
       <li>

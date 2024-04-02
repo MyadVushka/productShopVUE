@@ -19,7 +19,7 @@ const onFavouriteToggle = (id) => {
       <img src="/public/toPageList.svg" alt="" />
       <p class="top_paragraph">Избранное</p>
     </div>
-    <h1 class="main-top-text">"Избранное</h1>
+    <h1 class="main-top-text">Избранное</h1>
     <div class="main__content">
       <div class="left-side">
         <button>Фильтр</button>

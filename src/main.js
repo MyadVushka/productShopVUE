@@ -1,6 +1,9 @@
 import './assets/main.css'
 
 import { createApp } from 'vue'
+import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
 import { createRouter, createWebHistory } from 'vue-router'
 import { createPinia } from 'pinia'
 import App from './App.vue'
@@ -12,6 +15,7 @@ import FavouritesPage from './pages/FavouritesPage.vue'
 import CartPage from './pages/CartPage.vue'
 import DeliveryPage from './pages/DeliveryPage.vue'
 import CataloguePage from './pages/CataloguePage.vue'
+import ProductPage from './pages/ProductPage.vue'
 
 const routes = [
   { path: '/', name: 'Home', component: MainPage },
@@ -21,7 +25,8 @@ const routes = [
   { path: '/favourites', component: FavouritesPage },
   { path: '/cart', component: CartPage },
   { path: '/delivery', component: DeliveryPage },
-  {path: '/catalogue', component: CataloguePage},
+  { path: '/catalogue', component: CataloguePage },
+  {path: '/product', components: ProductPage},
 ]
 
 const router = createRouter({
@@ -29,4 +34,9 @@ const router = createRouter({
   routes
 })
 
-createApp(App).use(createPinia()).use(router).mount('#app')
+const vuetify = createVuetify({
+  components,
+  directives
+})
+
+createApp(App).use(vuetify).use(createPinia()).use(router).mount('#app')

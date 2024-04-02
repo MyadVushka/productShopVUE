@@ -1,6 +1,13 @@
-<script setup></script>
+<script setup>
+import { ref } from 'vue'
+const expression = ref(false)
+</script>
 
 <template>
+  <v-snackbar class="snackbar" v-model="expression" color="#70c05b" location="left bottom">
+    <span class="snackbar text">In this project there are no articles =)</span>
+    <v-btn class="snackbar button" @click.prevent="expression = false" variant="plain">Close</v-btn>
+  </v-snackbar>
   <div class="generalWrapper">
     <img class="article__img" src="/public/image 5.png" alt="" />
     <div class="article__text">
@@ -10,7 +17,7 @@
         Подробная информация о режимах использования масок и перчаток на территории магазинов
         "ЛЕНТА". Информация обновляется каждый будний день.
       </p>
-      <button class="article__button">Подробнее</button>
+      <button @click="expression = true" class="article__button">Подробнее</button>
     </div>
   </div>
 </template>

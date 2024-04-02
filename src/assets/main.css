@@ -50,3 +50,7 @@ a {
   font-size: 64px;
   margin: 24px 0 60px 0;
 }
+
+.snackbar {
+  color: white;
+}
