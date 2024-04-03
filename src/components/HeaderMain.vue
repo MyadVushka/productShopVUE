@@ -5,17 +5,27 @@ import { useMainStore } from '../../stores/MainStore'
 import RegistrationForm from './RegistrationForm.vue'
 
 const dropDownFlag = ref(false)
+const searchFlag = ref(false)
 
 const store = useMainStore()
 
 const registrationFormFlag = ref(false)
 
 const currentCartElemenents = computed(() => store.getAddedProducts.length)
+const currentSearchRes = computed(() => store.getFilteredArray)
 
 const currentSearch = ref('')
 
-let debounceHandler = debounce(async function () {
+let debounceHandler = debounce(function () {
   console.log(currentSearch.value)
+  if (!currentSearch.value.length) {
+    searchFlag.value = false
+    store.setFilteredArrayClear()
+  } else {
+    searchFlag.value = true
+    store.setFilteredArray(currentSearch.value)
+  }
+  console.log(currentSearchRes.value)
 }, 1000)
 
 watch(currentSearch, () => debounceHandler())
@@ -35,8 +45,26 @@ watch(currentSearch, () => debounceHandler())
             <router-link to="/catalogue"><p class="wrapper__button_text">Каталог</p></router-link>
           </button>
           <div class="wrapper__input">
-            <input type="text" placeholder="Найти товар" v-model="currentSearch" />
+            <input
+              @click="searchFlag = true"
+              :class="{
+                'main-input': currentSearch.length >= 0,
+                'main-input_active': searchFlag
+              }"
+              type="text"
+              placeholder="Найти товар"
+              v-model="currentSearch"
+            />
             <img src="/public/lupa.svg" alt="" />
+            <div v-if="searchFlag" class="wrapper__post-input-list">
+              <ul class="search__list">
+                <li class="search__list_item" v-for="item in currentSearchRes" :key="item.id">
+                  <router-link :to="`/product/${item.id}`" @click="searchFlag = false">
+                    {{ item.title }}
+                  </router-link>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
         <ul class="wrapper__list">
@@ -94,6 +122,31 @@ watch(currentSearch, () => debounceHandler())
 </template>
 
 <style scoped>
+.search__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+}
+
+.search__list li {
+  align-items: baseline;
+  cursor: pointer;
+}
+
+.wrapper__post-input-list {
+  border: 1px solid #70c05b;
+  border-top-color: white;
+  top: 83%;
+  z-index: 0;
+  padding: 20px;
+  position: absolute;
+  background-color: white;
+  width: 100%;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
 .wrapper__button_text {
   color: white;
 }
@@ -159,14 +212,19 @@ watch(currentSearch, () => debounceHandler())
   position: relative;
 }
 
-.wrapper__input input {
+.main-input {
   border: none;
   outline: none;
   border: solid 1px #70c05b;
+  z-index: 100;
   width: 500px;
   height: 40px;
   padding: 10px 35px 10px 20px;
   border-radius: 7px;
+}
+
+.main-input_active {
+  border-bottom-color: white;
 }
 
 .wrapper__input img {

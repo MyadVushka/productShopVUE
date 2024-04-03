@@ -3,7 +3,8 @@ import { ref, computed } from 'vue'
 
 export const useMainStore = defineStore('main', () => {
   const beginArr = ref([])
-  const generalAmount = ref(0);
+  const generalAmount = ref(0)
+  const filteredArray = ref([])
   const setBeginArr = async () => {
     try {
       const infoJSON = await fetch('https://ea53d30cbb123a02.mokky.dev/items')
@@ -21,10 +22,20 @@ export const useMainStore = defineStore('main', () => {
   const getAddedProducts = computed(() => beginArr.value.filter((el) => el.isAdded))
   const getChosenProducts = computed(() => beginArr.value.filter((el) => el.chosenOnCart))
 
-  const getGeneralAmount = computed(() => generalAmount.value);
+  const getGeneralAmount = computed(() => generalAmount.value)
+
+  const getFilteredArray = computed(() => filteredArray.value)
+
+  const setFilteredArray = (title) => {
+    for (let i = 0; i < beginArr.value.length; i++) {
+      if (beginArr.value[i].title.toLowerCase().includes(title.toLowerCase()))  filteredArray.value.push(beginArr.value[i]);
+    }
+  }
+
+  const setFilteredArrayClear = () => filteredArray.value = [];
 
   const setGeneralAmount = (amount) => {
-    generalAmount.value = amount;
+    generalAmount.value = amount
   }
 
   const setAddedProducts = (id) => {
@@ -49,9 +60,12 @@ export const useMainStore = defineStore('main', () => {
     getAddedProducts,
     getChosenProducts,
     getGeneralAmount,
+    getFilteredArray,
     setFavouriteToggle,
     setAddedProducts,
     setChosenToggle,
-    setGeneralAmount
+    setGeneralAmount,
+    setFilteredArray,
+    setFilteredArrayClear,
   }
 })
