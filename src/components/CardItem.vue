@@ -34,10 +34,10 @@ const onAddHandler = (id) => {
         class="img-favourite"
         :src="
           props.isFavourite
-            ? 'public/card-item-favouriteState.svg'
+            ? '/public/card-item-favouriteState.svg'
             : '/public/card-item-favourite.svg'
         "
-        alt=""
+        alt="favouriteState"
       />
       <div v-if="props.hasDiscount" class="discount__state">
         <span>-50%</span>

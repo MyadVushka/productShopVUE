@@ -125,7 +125,7 @@ watch(currentSearch, () => debounceHandler())
 .search__list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
   text-align: left;
 }
 
@@ -213,7 +213,6 @@ watch(currentSearch, () => debounceHandler())
 }
 
 .main-input {
-  border: none;
   outline: none;
   border: solid 1px #70c05b;
   z-index: 100;
