@@ -12,7 +12,6 @@ const props = defineProps({
 const emit = defineEmits(['addToCart', 'addToFavourite'])
 
 const onFavouriteHandler = (id) => {
-  console.log('id: ' + props.id)
   try {
     emit('addToFavourite', id)
   } catch (error) {

@@ -22,12 +22,10 @@ const product = ref([
 ])
 
 onMounted(() => {
-  console.log(props.id)
   product.value = filteredProducts.value.find((el) => el.id === Number(props.id))
 })
 
 onUpdated(() => {
-  console.log(props.id)
   product.value = filteredProducts.value.find((el) => el.id === Number(props.id))
 })
 </script>

@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from 'vue'
 import CatalogueCard from '../components/CatalogueCard.vue'
 
 const imgURLS = [
@@ -68,9 +69,15 @@ const imgURLS = [
     id: 12
   }
 ]
+
+const expression = ref(false)
 </script>
 
 <template>
+  <v-snackbar class="snackbar" v-model="expression" color="#70c05b" location="left bottom">
+    <span class="snackbar text">In this project there are no catalogue</span>
+    <v-btn class="snackbar button" @click.prevent="expression = false" variant="plain">Close</v-btn>
+  </v-snackbar>
   <section class="wrapper__info">
     <div class="innerinfo">
       <router-link to="/">Главная</router-link>
@@ -85,6 +92,7 @@ const imgURLS = [
         :title="item.title"
         :imgUrl="item.imgUrl"
         :id="item.id"
+        @click="expression = true"
       />
     </div>
   </section>

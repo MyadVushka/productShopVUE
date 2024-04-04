@@ -17,7 +17,6 @@ const currentSearchRes = computed(() => store.getFilteredArray)
 const currentSearch = ref('')
 
 let debounceHandler = debounce(function () {
-  console.log(currentSearch.value)
   if (!currentSearch.value.length) {
     searchFlag.value = false
     store.setFilteredArrayClear()
@@ -25,7 +24,6 @@ let debounceHandler = debounce(function () {
     searchFlag.value = true
     store.setFilteredArray(currentSearch.value)
   }
-  console.log(currentSearchRes.value)
 }, 1000)
 
 watch(currentSearch, () => debounceHandler())
@@ -173,7 +171,7 @@ watch(currentSearch, () => debounceHandler())
   position: fixed;
   width: 100%;
   top: 0;
-  z-index: 100;
+  z-index: 999;
 }
 
 .header {

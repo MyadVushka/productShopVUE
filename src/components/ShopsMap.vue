@@ -8,7 +8,6 @@ const buttonStyle = reactive({
   4: false
 })
 
-console.log(buttonStyle[1])
 
 const toggleButton = (id) => {
   for (const key in buttonStyle) {
